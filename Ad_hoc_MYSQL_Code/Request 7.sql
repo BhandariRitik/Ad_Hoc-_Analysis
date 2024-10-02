@@ -1,16 +1,26 @@
-with cte1 as (
-select concat(monthname(date), ' (', year(date), ')') as Month, 
-fs.customer_code,fs.product_code, fs.sold_quantity, fs.fiscal_year,
-fg.gross_price
-from fact_sales_monthly fs
-join fact_gross_price fg
-on fs.product_code = fg.product_code
+WITH cte1 AS (
+    SELECT 
+        CONCAT(MONTHNAME(date), ' (', YEAR(date), ')') AS Month, 
+        fs.customer_code,
+        fs.product_code, 
+        fs.sold_quantity, 
+        fs.fiscal_year,
+        fg.gross_price
+    FROM 
+        fact_sales_monthly fs
+    JOIN 
+        fact_gross_price fg ON fs.product_code = fg.product_code
 )
-select Month, 
-fiscal_year, 
-round(sum(sold_quantity * gross_price),2) as gross_sales_amount
-from cte1
-join dim_customer
-on cte1.customer_code = dim_customer.customer_code
-where dim_customer.customer = "Atliq Exclusive" 
-group by Month, fiscal_year;
+SELECT 
+    Month, 
+    fiscal_year, 
+    ROUND(SUM(sold_quantity * gross_price), 2) AS gross_sales_amount
+FROM 
+    cte1
+JOIN 
+    dim_customer ON cte1.customer_code = dim_customer.customer_code
+WHERE 
+    dim_customer.customer = 'Atliq Exclusive' 
+GROUP BY 
+    Month, 
+    fiscal_year;
