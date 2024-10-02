@@ -1,5 +1,9 @@
-select segment, count(distinct(product_code)) as product_count
-from dim_product
-group by segment
-order by product_count desc;
-
+SELECT 
+    segment, 
+    COUNT(DISTINCT product_code) AS product_count
+FROM 
+    dim_product
+GROUP BY 
+    segment
+ORDER BY 
+    product_count DESC;
