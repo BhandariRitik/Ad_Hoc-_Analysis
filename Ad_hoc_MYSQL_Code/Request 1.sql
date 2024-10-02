@@ -1,2 +1,7 @@
-select distinct(market) from dim_customer
-where customer = "Atliq exclusive" and region = "APAC";
+SELECT DISTINCT 
+    market 
+FROM 
+    dim_customer
+WHERE 
+    customer = 'Atliq exclusive' 
+    AND region = 'APAC';
