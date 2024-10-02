@@ -1,11 +1,16 @@
-select case 
-when month(date) in (9,10,11) then "Q1"
-when month(date) in (12,1,2) then "Q2"
-when month(date) in (3,4,5) then "Q3"
-when month(date) in (6,7,8) then "Q4"
-end as Quarter,
-sum(sold_quantity) as total_sold_quantity
-from fact_sales_monthly
-where fiscal_year = 2020
-group by Quarter
-order by total_sold_quantity desc;
+SELECT 
+    CASE 
+        WHEN MONTH(date) IN (9, 10, 11) THEN 'Q1'
+        WHEN MONTH(date) IN (12, 1, 2) THEN 'Q2'
+        WHEN MONTH(date) IN (3, 4, 5) THEN 'Q3'
+        WHEN MONTH(date) IN (6, 7, 8) THEN 'Q4'
+    END AS Quarter,
+    SUM(sold_quantity) AS total_sold_quantity
+FROM 
+    fact_sales_monthly
+WHERE 
+    fiscal_year = 2020
+GROUP BY 
+    Quarter
+ORDER BY 
+    total_sold_quantity DESC;
