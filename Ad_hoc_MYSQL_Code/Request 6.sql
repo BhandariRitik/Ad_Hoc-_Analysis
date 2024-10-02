@@ -1,8 +1,17 @@
-select fp.customer_code, d.customer, round(avg(pre_invoice_discount_pct),4) as average_discount_percentaged  
-from fact_pre_invoice_deductions fp
-join dim_customer d
-on fp.customer_code = d.customer_code
-where fiscal_year = 2021 and market  = "india"
-group by fp.customer_code, d.customer
-order by average_discount_percentaged desc
-limit 5;
+SELECT 
+    fp.customer_code, 
+    d.customer, 
+    ROUND(AVG(pre_invoice_discount_pct), 4) AS average_discount_percentage  
+FROM 
+    fact_pre_invoice_deductions fp
+JOIN 
+    dim_customer d ON fp.customer_code = d.customer_code
+WHERE 
+    fiscal_year = 2021 
+    AND market = 'india'
+GROUP BY 
+    fp.customer_code, 
+    d.customer
+ORDER BY 
+    average_discount_percentage DESC
+LIMIT 5;
